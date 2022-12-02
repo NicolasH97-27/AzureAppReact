@@ -105,9 +105,6 @@ const MainContent = (props) => {
   const addInfo = (infoObject) => {
     console.log("producto:", infoObject);
     setk(k+1)
-    
-   
-
     fetch("https://strnico.blob.core.windows.net/input/"+k+".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-11-30T20:27:35Z&st=2022-11-30T12:27:35Z&spr=https&sig=XD%2BVqNAyPcKXVbu9lUuukBIpguwyhi5FSBnQ469LqMs%3D", {
       method: "PUT",
       headers: {

@@ -14,7 +14,8 @@ export const msalConfig = {
     auth: {
         clientId: "329130c7-fc0f-4906-8448-b4c8cfb04ea4",
         authority: "https://login.microsoftonline.com/24dbc8a8-359a-44ff-b28f-ab81f3bc1d61",
-        redirectUri: "http://localhost:3000"
+        redirectUri: "https://nicolash97-27.github.io/AzureAppReact/"
+        // redirectUri: "http://localhost:3000"
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
