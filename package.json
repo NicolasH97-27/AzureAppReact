@@ -1,6 +1,5 @@
 {
   "name": "msal-react-tutorial",
-  "homepage":"http://NicolasH97-27.github.io/AzureAppReact",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -45,5 +44,6 @@
   },
   "devDependencies": {
     "gh-pages": "^4.0.0"
-  }
+  },
+  "homepage":"http://NicolasH97-27.github.io/AzureAppReact"
 }
