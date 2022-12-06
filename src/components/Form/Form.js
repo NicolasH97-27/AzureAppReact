@@ -5,8 +5,6 @@ import Row from "./Row/Row"
 
 
 const Form = ({info,onClick,message}) =>{
-    
-    
     const {register,formState : {errors}, handleSubmit} = useForm()
     const [selected,setSelected] = useState()
     
