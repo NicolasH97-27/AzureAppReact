@@ -23,8 +23,6 @@ PERFORMANCE OF THIS SOFTWARE.
 
 /*! @azure/msal-common v9.0.0 2022-11-22 */
 
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
-
 /**
  * @license React
  * react-dom.production.min.js
