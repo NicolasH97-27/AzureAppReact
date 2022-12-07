@@ -2,8 +2,8 @@
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License.
  */
-
 import { LogLevel } from "@azure/msal-browser";
+const uri = "http://localhost:3000"
 
 /**
  * Configuration object to be passed to MSAL instance on creation. 
@@ -14,7 +14,7 @@ export const msalConfig = {
     auth: {
         clientId: "d0b0ed93-2b63-4434-bafa-42004d6c0118",
         authority: "https://login.microsoftonline.com/71d929a5-af77-473e-bf1a-0d41e1affefe",
-        redirectUri: "http://localhost:3000"
+        redirectUri: uri
         // redirectUri: "http://localhost:3000"
     },
     cache: {
