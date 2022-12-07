@@ -24,7 +24,7 @@ export const SignInButton = () => {
     return (
 
         <DropdownButton variant="secondary" className="ml-auto" drop="start" title="ingresar">
-            <Dropdown.Item as="button" onClick={() => handleLogin("popup")}>ingresar usando pop up</Dropdown.Item>
+            {/* <Dropdown.Item as="button" onClick={() => handleLogin("popup")}>ingresar usando pop up</Dropdown.Item> */}
             <Dropdown.Item as="button" onClick={() => handleLogin("redirect")}>ingresar usando Redirect</Dropdown.Item>
         </DropdownButton>
 
