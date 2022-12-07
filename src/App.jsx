@@ -36,6 +36,13 @@ const data = [
   { Producto: "Casco deportivo: 100, rojo", Cod_Producto: "213" },
   { Producto: "Calcetines para bicicleta de montaña, M", Cod_Producto: "218" },
 ];
+
+const parseoParaDataFiltrada = (productoAFiltrar) => {
+    return {
+      Producto:productoAFiltrar.Producto,
+      Cod_Producto: productoAFiltrar.Cod_Producto
+    }
+}
 const ProfileContent = () => {
   const { instance, accounts } = useMsal();
   const [graphData, setGraphData] = useState(null);
@@ -68,8 +75,10 @@ const ProfileContent = () => {
 const MainContent = (props) => {
   const [posts, setPosts] = useState([]);
   const [modal, setModal] = useState(false);
+
   const { modalCargarCateg, setModalCargarCateg } = props;
 
+  const [dataFiltrado,setDataFiltrado] = useState([])
   const [productosFilter, setProductosFilter] = useState("");
   const [Cod_Producto, setCod_Producto] = useState("");
   const [Cod_SubCategoria, setCod_SubCategoria] = useState("");
@@ -79,10 +88,12 @@ const MainContent = (props) => {
   const [k, setk] = useState(1);
 
   useEffect(() => {
-    fetch("https://strnico.blob.core.windows.net/productos/testoutput.json")
+    fetch("https://strnicoaccount2120.blob.core.windows.net/cotainerinput/salidaprod%20(6).json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
+        const dataNuevaFiltrada = data.map(parseoParaDataFiltrada) 
+        setDataFiltrado(data);
         let categoriasArray = [];
         data.forEach((post) => {
           if (!categoriasArray.some((e) => e.categoria === post.Categoria)) {
@@ -113,13 +124,16 @@ const MainContent = (props) => {
     
     setk(k + 1);
     console.log("hola", infoObject);
-    if(infoObject.length>0){
-      console.log("ATENCION: no se puede enviar")
+    console.log(envios)
+    setNotes([])
+    setErrorMessage('se guardo exitosamente')
+    if(envios.length<10){
+      console.log('no se envia por el largo es', envios.length)
     }else{
       fetch(
-        "https://strnico.blob.core.windows.net/input/" +
+        "https://strnicoaccount2120.blob.core.windows.net/out/" +
           k +
-          ".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-11-30T20:27:35Z&st=2022-11-30T12:27:35Z&spr=https&sig=XD%2BVqNAyPcKXVbu9lUuukBIpguwyhi5FSBnQ469LqMs%3D",
+          ".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-07T10:54:57Z&st=2022-12-07T02:54:57Z&spr=https&sig=ReVVNc6UM8NVSi01o97SJyOMCQHfWZjleww5j3yXt6U%3D",
         {
           method: "PUT",
           headers: {
@@ -127,30 +141,22 @@ const MainContent = (props) => {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(infoObject),
+          body: JSON.stringify(envios),
         }
       )
         .then((response) => response.json())
         .then((response) => console.log(JSON.stringify(response)));
-      console.log("hola", infoObject);
-      setNotes([])
-      setErrorMessage('se guardo exitosamente')
+      setEnvios([])
     }
   };
 
 
   const filterConditions = (producto) => {
-    let cumple = true;
-
-    if (productosFilter !== "" && !producto.Producto.includes(productosFilter))
-      cumple = false;
-    if (Cod_Producto !== "" && Cod_Producto !== producto.Cod_Producto)
-      cumple = false;
-    if (
-      Cod_SubCategoria !== "" &&
-      Cod_SubCategoria !== producto.Cod_SubCategoria
-    )
-    cumple = false;
+    let cumple = false;
+    if(productosFilter === "") cumple=true ;
+    if (producto.Producto.toLowerCase().includes(productosFilter.toLowerCase()))   cumple = true;
+    if (productosFilter == producto.Cod_Producto)  cumple = true;
+    if (productosFilter == producto.Cod_SubCategoria )  cumple = true;
 
     return cumple;
   };
@@ -159,7 +165,7 @@ const MainContent = (props) => {
   // K
 
   // *******************************************************************************************************
-  const [presidentes, setPresidentes] = useState(data);
+  const [presidentes, setPresidentes] = useState(dataFiltrado);
   const [value, setValue] = useState("");
   const [presidenteSeleccionado, setPresidenteSeleccionado] = useState({});
 
@@ -171,7 +177,7 @@ const MainContent = (props) => {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
-    var filtrado = data.filter((Cod_Producto) => {
+    var filtrado = dataFiltrado.filter((Cod_Producto) => {
       var textoCompleto =
         Cod_Producto.Cod_Producto + " - " + Cod_Producto.Producto;
 
@@ -233,13 +239,17 @@ const MainContent = (props) => {
   // notasssssss ******************************************************
   // ******************************************
   const [notes, setNotes] = useState([]);
+  const [envios, setEnvios] = useState([]);
   const [stock,setStock] = useState(0)
 
   const addNote = (newNote) => {
     newNote.stock = stock 
-    console.log(newNote)
-    setNotes(notes.concat(newNote))
-    setErrorMessage('')
+    if(newNote.stock>0){
+
+      setNotes(notes.concat(newNote))
+      setErrorMessage('')
+      setEnvios(envios.concat(newNote))
+    }
   }
   return (
     <div className="App">

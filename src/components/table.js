@@ -12,16 +12,13 @@ function DarkTable(props) {
              Producto
             </th>
             <th>
-            Categoria
+            Cod_Producto
             </th>
             <th>
-            SubCategoria
+            Cod_SubCategoria
             </th>
             <th>
-            Sucursal
-            </th>
-            <th>
-            Cantidad
+            Color
             </th>
           </tr>
     
@@ -33,10 +30,9 @@ function DarkTable(props) {
                   
                   <tr key = {i}>
                   <td>{row.Producto}</td>
-                  <td>{row.Categoria}</td>
-                  <td>{row.SubCategoria}</td>
-                  <td>{row.Sucursal}</td>
-                  <td>{row.Cantidad}</td>
+                  <td>{row.Cod_Producto}</td>
+                  <td>{row.Cod_SubCategoria}</td>
+                  <td>{row.Color}</td>
                   </tr>
                 )
       })}

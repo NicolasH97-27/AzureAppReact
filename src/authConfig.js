@@ -14,7 +14,7 @@ export const msalConfig = {
     auth: {
         clientId: "d0b0ed93-2b63-4434-bafa-42004d6c0118",
         authority: "https://login.microsoftonline.com/71d929a5-af77-473e-bf1a-0d41e1affefe",
-        redirectUri: "https://nicolash97-27.github.io/AzureAppReact/"
+        redirectUri: "http://localhost:3000"
         // redirectUri: "http://localhost:3000"
     },
     cache: {
