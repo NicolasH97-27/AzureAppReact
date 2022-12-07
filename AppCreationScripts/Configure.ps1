@@ -36,7 +36,7 @@ Function ConfigureApplications {
         -SignInAudience AzureADandPersonalMicrosoftAccount `
          -Spa `
             @{ `
-                RedirectUris = "https://nicolash97-27.github.io/AzureAppReact/"; `
+                RedirectUris = "http://localhost:3000"; `
             } `
 
 
