@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/AzureAppReact/static/css/main.b71a2a01.css",
-    "main.js": "/AzureAppReact/static/js/main.a5411474.js",
+    "main.js": "/AzureAppReact/static/js/main.9fa8bdb5.js",
     "index.html": "/AzureAppReact/index.html",
     "main.b71a2a01.css.map": "/AzureAppReact/static/css/main.b71a2a01.css.map",
-    "main.a5411474.js.map": "/AzureAppReact/static/js/main.a5411474.js.map"
+    "main.9fa8bdb5.js.map": "/AzureAppReact/static/js/main.9fa8bdb5.js.map"
   },
   "entrypoints": [
     "static/css/main.b71a2a01.css",
-    "static/js/main.a5411474.js"
+    "static/js/main.9fa8bdb5.js"
   ]
 }
