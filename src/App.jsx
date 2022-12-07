@@ -88,7 +88,7 @@ const MainContent = (props) => {
   const [k, setk] = useState(1);
 
   useEffect(() => {
-    fetch("https://strnicoaccount2120.blob.core.windows.net/cotainerinput/salidaprod%20(6).json")
+    fetch("https://datalake0854grupo4.blob.core.windows.net/output/salidaprod (6).json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -131,9 +131,9 @@ const MainContent = (props) => {
       console.log('no se envia por el largo es', envios.length)
     }else{
       fetch(
-        "https://strnicoaccount2120.blob.core.windows.net/out/" +
+        "https://datalake0854grupo4.blob.core.windows.net/input/" +
           k +
-          ".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-07T10:54:57Z&st=2022-12-07T02:54:57Z&spr=https&sig=ReVVNc6UM8NVSi01o97SJyOMCQHfWZjleww5j3yXt6U%3D",
+          ".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-07T20:20:37Z&st=2022-12-07T12:20:37Z&spr=https&sig=QhO7ZbpktqwZXh5IHVylxZ6SId%2BVzF2yF087LuuiwJs%3D",
         {
           method: "PUT",
           headers: {
