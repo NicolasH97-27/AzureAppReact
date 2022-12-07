@@ -5,6 +5,7 @@
 import { LogLevel } from "@azure/msal-browser";
 const uri = "http://localhost:3000"
 
+
 /**
  * Configuration object to be passed to MSAL instance on creation. 
  * For a full list of MSAL.js configuration parameters, visit:
