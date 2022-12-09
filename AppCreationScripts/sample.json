@@ -12,8 +12,8 @@
         "Id": "spa",
         "Name": "ms-identity-javascript-react-spa",
         "Kind" :  "SinglePageApplication",
-        "HomePage": "https://nicolash97-27.github.io/AzureAppReact/",
-        "ReplyUrls":"https://nicolash97-27.github.io/AzureAppReact/",
+        "HomePage": "http://localhost:3000",
+        "ReplyUrls":"http://localhost:3000",
         "Audience": "AzureADandPersonalMicrosoftAccount",
         "RequiredResourcesAccess": [
           {

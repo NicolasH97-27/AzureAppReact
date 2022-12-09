@@ -22,7 +22,7 @@ export const PageLayout = (props) => {
         <>
             <Navbar bg="primary" variant="dark" className="navbarStyle">
                 <a className="navbar-brand" href="/">
-                    Provedores
+                    Azure 
                 </a>
                 <div className="collapse navbar-collapse justify-content-end">
                     {isAuthenticated ? <button onClick={()=>{setModalCargarCateg(true);console.log(modalCargarCateg)}}>Cargar Productos</button> : <></>}

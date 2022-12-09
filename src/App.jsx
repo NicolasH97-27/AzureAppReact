@@ -88,7 +88,7 @@ const MainContent = (props) => {
   const [k, setk] = useState(1);
 
   useEffect(() => {
-    fetch("https://datalake0854grupo4.blob.core.windows.net/output/salidaprod (6).json")
+    fetch("https://strnico2022n.blob.core.windows.net/input/salidaprod (6).json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -131,7 +131,9 @@ const MainContent = (props) => {
       console.log('no se envia por el largo es', envios.length)
     }else{
       fetch(
-        "https://datalake0854grupo4.blob.core.windows.net/input/1.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-07T20:20:37Z&st=2022-12-07T12:20:37Z&spr=https&sig=QhO7ZbpktqwZXh5IHVylxZ6SId%2BVzF2yF087LuuiwJs%3D",
+        "https://datalake0854grupo4.blob.core.windows.net/input/" +
+          k +
+          ".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-07T20:20:37Z&st=2022-12-07T12:20:37Z&spr=https&sig=QhO7ZbpktqwZXh5IHVylxZ6SId%2BVzF2yF087LuuiwJs%3D",
         {
           method: "PUT",
           headers: {
@@ -322,7 +324,56 @@ const MainContent = (props) => {
               </Col>
             </Form.Group>
 
-          
+            <Dropdown autoClose={"outside"}>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Categorias
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                {categorias.map((categoria) => (
+                  <Dropdown.Item href="#/action-1">
+                    <Dropdown as={ButtonGroup}>
+                      <Button
+                        variant="success"
+                        onClick={() => setCod_Producto(categoria.categoria)}
+                      >
+                        {categoria.categoria}{" "}
+                      </Button>
+
+                      <Dropdown.Toggle
+                        split
+                        variant="success"
+                        id="dropdown-split-basic"
+                      />
+
+                      <Dropdown.Menu>
+                        {categoria.subcategorias.map((subcategoria) => (
+                          <Dropdown.Item
+                            href="#/action-1"
+                            onClick={() => {
+                              setCod_Producto(categoria.categoria);
+                              setCod_SubCategoria(subcategoria);
+                            }}
+                          >
+                            {subcategoria}{" "}
+                          </Dropdown.Item>
+                        ))}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+
+            <Button
+              onClick={() => {
+                setProductosFilter("");
+                setCod_Producto("");
+                setCod_SubCategoria("");
+              }}
+            >
+              Borrar Filtros
+            </Button>
           </Form>
         </div>
         <DarkTable posts={posts.filter(filterConditions)} />
