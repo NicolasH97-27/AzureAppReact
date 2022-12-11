@@ -4,11 +4,14 @@ import { useState } from "react";
 function DarkTable(props) {
   const rows = props.posts;
   const [isOpen, setIsOpen] = useState(false);
+  const [listac, setListac] = useState();
+  const [stock, setStock] = useState();
 
-  const togglePopup = () => {
+  const togglePopup = (e) => {
     setIsOpen(!isOpen);
   }
   const Popup = props => {
+    
     return (
       <div className="popup-box">
         <div className="box">
@@ -37,7 +40,7 @@ function DarkTable(props) {
                 <input
                   type="button"
                   value="comprar"
-                  onClick={togglePopup}
+                  onClick={() => {setListac(row);togglePopup()}}
                 />
                 {isOpen && (
                   <Popup
@@ -45,8 +48,10 @@ function DarkTable(props) {
                       <>
                         <b>esta es tu compra</b>
                         <p>
-                          el producto esta bueno
-                          
+                          Tu producto: {listac.Producto}<br/>
+                          Color: {listac.Color}<br/>
+                          Cod_Producto: {listac.Cod_Producto}<br/>
+                          Cod_SubCategoria: {listac.Cod_SubCategoria}<br/>
                         </p>
                       </>
                     }

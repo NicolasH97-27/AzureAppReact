@@ -88,7 +88,7 @@ const MainContent = (props) => {
   const [k, setk] = useState(1);
 
   useEffect(() => {
-    fetch("https://strnico2022n.blob.core.windows.net/input/salidaprod (6).json")
+    fetch("https://strnicoaccount1012.blob.core.windows.net/output/salidaprod (6).json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -131,9 +131,7 @@ const MainContent = (props) => {
       console.log('no se envia por el largo es', envios.length)
     }else{
       fetch(
-        "https://datalake0854grupo4.blob.core.windows.net/input/" +
-          k +
-          ".json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-07T20:20:37Z&st=2022-12-07T12:20:37Z&spr=https&sig=QhO7ZbpktqwZXh5IHVylxZ6SId%2BVzF2yF087LuuiwJs%3D",
+        "https://strnicoaccount1012.blob.core.windows.net/input/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-11T04:11:15Z&st=2022-12-10T20:11:15Z&spr=https&sig=uqsRVFVAXd2cUC1K75Nhi9nEd6KyvWJUZlafqYh9g9Y%3D",
         {
           method: "PUT",
           headers: {
@@ -240,10 +238,11 @@ const MainContent = (props) => {
   // ******************************************
   const [notes, setNotes] = useState([]);
   const [envios, setEnvios] = useState([]);
-  const [stock,setStock] = useState(0)
+  const [stock,setStock] = useState(0);
 
-  const addNote = (newNote) => {
-    newNote.stock = stock 
+  const addNote = (note) => {
+    const newNote = { ...note };
+    newNote.stock = stock
     if(newNote.stock>0){
 
       setNotes(notes.concat(newNote))
