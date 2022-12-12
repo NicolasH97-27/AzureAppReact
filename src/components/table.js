@@ -35,10 +35,18 @@ function DarkTable(props) {
   const addNote = (note) => {
     const newEnvios = { ...note };
     newEnvios.stock = counter
-    props.setEnvios((props.envios).concat('newEnvios'))
-    setToZero()
-    console.log(props.envios)
+    if(newEnvios.stock>0){
+      props.setEnvios((props.envios).concat(newEnvios))
+      props.setEnvios2((props.envios2).concat(newEnvios))
+      setToZero()
+      console.log(props.envios)
+      
+    }
+    
   }
+
+
+
 
   return (
     <div>

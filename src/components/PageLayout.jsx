@@ -5,7 +5,7 @@
 
 import {React, useState} from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-
+import Note from './Note';
 import { useIsAuthenticated } from '@azure/msal-react';
 import { SignInButton } from './SignInButton';
 import { SignOutButton } from './SignOutButton';
@@ -17,7 +17,7 @@ import { SignOutButton } from './SignOutButton';
 export const PageLayout = (props) => {
     const isAuthenticated = useIsAuthenticated();
     const {modalCargarCateg,setModalCargarCateg} = props
-
+    
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -39,6 +39,32 @@ export const PageLayout = (props) => {
       );
     };
 
+    const addInfo = (infoObject) => {
+    
+      console.log("holaaaaaaaaaaaa", infoObject);
+      console.log('envios')
+      props.setcompra([])
+      if(props.compra.length<11){
+        console.log('no se envia por el largo es', props.compra.length)
+      }else{
+        fetch(
+          "https://strnico2022n.blob.core.windows.net/input2/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
+          {
+            method: "PUT",
+            headers: {
+              "x-ms-blob-type": "BlockBlob",
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(props.compra2),
+          }
+        )
+          .then((response) => response.json())
+          .then((response) => console.log(JSON.stringify(response)));
+        props.setcompra2([])
+      }
+    };
+
     return (
         <>
             {isOpen && (
@@ -48,7 +74,12 @@ export const PageLayout = (props) => {
               <b>esta es tu compra</b>
               <p>
                 <br />
-                tu compra
+                tu compra es:
+                {(props.compra).map((note) => (
+              <div>
+                <Note key={note.id} note={note} />
+              </div>
+            ))}
                 <br />
                 <br />
                 <div>
@@ -57,7 +88,8 @@ export const PageLayout = (props) => {
 
                 <button
                   className="btn btn-primary"
-                  onClick={console.log()}
+                  onClick={addInfo}
+                  
                 >
                 comprar
                 </button>
@@ -76,7 +108,7 @@ export const PageLayout = (props) => {
                     {isAuthenticated ? <button onClick={()=>{setModalCargarCateg(true);console.log(modalCargarCateg)}}>Cargar Productos</button> : <></>}
                 </div>
                 <div className="collapse navbar-collapse justify-content-end">
-                    {isAuthenticated ? <></> : <button title="Sign Ouddddddddddt" className='tucompra' onClick={()=>togglePopup()}></button>}
+                    {isAuthenticated ? <></> : <button title="Sign Ouddddddddddt" className='tucompra' onClick={()=>togglePopup()}>tu compra</button>}
                 </div>
                 <div className="collapse navbar-collapse justify-content-end">
                     {isAuthenticated ? <SignOutButton /> : <SignInButton />}

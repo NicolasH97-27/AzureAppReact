@@ -251,6 +251,23 @@ const MainContent = (props) => {
       setEnvios(envios.concat(newNote))
     }
   }
+  const Popup = (props) => {
+    return (
+      <div className="popup-box">
+        <div className="box">
+          <span className="close-icon" onClick={props.handleClose}>
+            x
+          </span>
+          {props.content}
+        </div>
+      </div>
+    );
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopup = (e) => {
+    setIsOpen(!isOpen);
+    console.log('que onda')
+  };
   return (
     <div className="App">
       <AuthenticatedTemplate>
@@ -274,7 +291,14 @@ const MainContent = (props) => {
                 inputProps={inputProps}
                 onSuggestionSelected={eventEnter}
               />
-              <input onChange={(e)=>{console.log("asdsadasda",e.target.value);setStock(e.target.value)}}defaultValue={"stock"} type={"number"}></input>
+              <input
+                onChange={(e) => {
+                  console.log("asdsadasda", e.target.value);
+                  setStock(e.target.value);
+                }}
+                defaultValue={"stock"}
+                type={"number"}
+              ></input>
               <br />
               <button
                 className="btn btn-primary"
@@ -282,22 +306,31 @@ const MainContent = (props) => {
               >
                 subir
               </button>
-
-
             </div>
             {notes.map((note) => (
               <div>
                 <Note key={note.id} note={note} />
               </div>
             ))}
-              <button
-                className="btn btn-primary"
-                onClick={() => addInfo(notes)}
-              >
-                guardar
-              </button>
+            <button className="btn btn-primary" onClick={() => addInfo(notes)}>
+              guardar
+            </button>
             {/* <Form2 onClick={addInfo} message={setErrorMessage} /> */}
             <h1>{errorMessage}</h1>
+            <button onClick={() => togglePopup()}>agregar nuevo producto</button>
+            {isOpen && (
+              <Popup
+                content={
+                  <>
+                    <h1>complete el formulario para agregar el nuevo producto...</h1>
+                    <br></br>
+                    <Form2/>
+                  </>
+                }
+                handleClose={togglePopup}
+              />
+            )}
+            
           </Modal.Body>
         </Modal>
       </AuthenticatedTemplate>
@@ -376,7 +409,13 @@ const MainContent = (props) => {
             </Button> */}
           </Form>
         </div>
-        <DarkTable posts={posts.filter(filterConditions) } envios = {posts2} setEnvios = {() => setEnvios} />
+        <DarkTable
+          envios2={props.compra2}
+          setEnvios2={props.setcompra2}
+          posts={posts.filter(filterConditions)}
+          envios={props.compra}
+          setEnvios={props.setcompra}
+        />
       </UnauthenticatedTemplate>
     </div>
   );
@@ -384,15 +423,23 @@ const MainContent = (props) => {
 
 export default function App() {
   const [modalCargarCateg, setModalCargarCateg] = useState(false);
-
+  const [compra,setCompra] = useState([])
+  const [compra2,setCompra2] = useState([])
   return (
     <PageLayout
       // addInfo= {addcompra}
-      // compra = {posts2}
+      compra = {compra}
+      setcompra = {setCompra}
       modalCargarCateg={modalCargarCateg}
+      compra2 = {compra2}
+      setcompra2 = {setCompra2}
       setModalCargarCateg={setModalCargarCateg}
     >
       <MainContent
+        compra = {compra}
+        setcompra = {setCompra}
+        compra2 = {compra2}
+        setcompra2 = {setCompra2}
         modalCargarCateg={modalCargarCateg}
         setModalCargarCateg={setModalCargarCateg}
       />

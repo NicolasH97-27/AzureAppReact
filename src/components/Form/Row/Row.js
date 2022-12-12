@@ -15,7 +15,14 @@ const Row = ({register,errors,message,handleChange,selected}) =>{
                 <label>Producto:</label>
             </div>
             <div className="txt_field">
-                <input  type="text"   {...register('Cantidad', {
+                <input type="text"  {...register('Color', {
+                    required: true
+                })}/>
+                <span></span>
+                <label>Color:</label>
+            </div>
+            <div className="txt_field">
+                <input  type="text"   {...register('Stock', {
                     required: true,
                     validate:ageValidator
                 })}/>
