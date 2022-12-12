@@ -74,6 +74,7 @@ const ProfileContent = () => {
  */
 const MainContent = (props) => {
   const [posts, setPosts] = useState([]);
+  const [posts2, setPosts2] = useState([]);
   const [modal, setModal] = useState(false);
 
   const { modalCargarCateg, setModalCargarCateg } = props;
@@ -88,7 +89,7 @@ const MainContent = (props) => {
   const [k, setk] = useState(1);
 
   useEffect(() => {
-    fetch("https://strnicoaccount1012.blob.core.windows.net/output/salidaprod (6).json")
+    fetch("https://strnico2022n.blob.core.windows.net/output/salidaprod (6).json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -323,7 +324,7 @@ const MainContent = (props) => {
               </Col>
             </Form.Group>
 
-            <Dropdown autoClose={"outside"}>
+            {/* <Dropdown autoClose={"outside"}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Categorias
               </Dropdown.Toggle>
@@ -372,10 +373,10 @@ const MainContent = (props) => {
               }}
             >
               Borrar Filtros
-            </Button>
+            </Button> */}
           </Form>
         </div>
-        <DarkTable posts={posts.filter(filterConditions)} />
+        <DarkTable posts={posts.filter(filterConditions) } envios = {posts2} setEnvios = {() => setEnvios} />
       </UnauthenticatedTemplate>
     </div>
   );
@@ -386,6 +387,8 @@ export default function App() {
 
   return (
     <PageLayout
+      // addInfo= {addcompra}
+      // compra = {posts2}
       modalCargarCateg={modalCargarCateg}
       setModalCargarCateg={setModalCargarCateg}
     >

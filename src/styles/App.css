@@ -45,3 +45,14 @@
   border: 1px solid #999;
   font-size: 20px;
 }
+
+.tucompra{
+  cursor: pointer;
+  background: #ededed;
+  width: 250px;
+  height: 25px;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}
