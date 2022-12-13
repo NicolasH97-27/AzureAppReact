@@ -18,7 +18,7 @@ function DarkTable(props) {
   const setToZero = () => setCounter(0)
   const togglePopup = (e) => {
     setIsOpen(!isOpen);
-    console.log('que onda')
+    
   };
   const Popup = (props) => {
     return (
@@ -39,7 +39,7 @@ function DarkTable(props) {
       props.setEnvios((props.envios).concat(newEnvios))
       props.setEnvios2((props.envios2).concat(newEnvios))
       setToZero()
-      console.log(props.envios)
+      
       
     }
     

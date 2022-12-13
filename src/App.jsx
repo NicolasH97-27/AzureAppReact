@@ -30,18 +30,17 @@ import Autosuggest from "react-autosuggest";
  * Renders information about the signed-in user or a button to retrieve data about the user
  */
 
-const data = [
-  // {producto: 'bicicleta', codigo: '456846'}
-
-  { Producto: "Casco deportivo: 100, rojo", Cod_Producto: "213" },
-  { Producto: "Calcetines para bicicleta de montaña, M", Cod_Producto: "218" },
-];
+const TENANTID = '71d929a5-af77-473e-bf1a-0d41e1affefe' //de active directory
+const SUSCRIPTIONID = '9cd6251c-8a67-432f-a673-0c45fb77031c' //de active directory
+const GRUPODERECURSOS = 'resourcenico2022n' //de active directory
+const DATAFACTORY = 'adfPruebaAPI' //de active directory
+const BLOBPILELINE = 'adfPruebaAPI' //de active directory
 
 const parseoParaDataFiltrada = (productoAFiltrar) => {
-    return {
-      Producto:productoAFiltrar.Producto,
-      Cod_Producto: productoAFiltrar.Cod_Producto
-    }
+  return {
+    Producto: productoAFiltrar.Producto,
+    Cod_Producto: productoAFiltrar.Cod_Producto
+  }
 }
 const ProfileContent = () => {
   const { instance, accounts } = useMsal();
@@ -79,7 +78,7 @@ const MainContent = (props) => {
 
   const { modalCargarCateg, setModalCargarCateg } = props;
 
-  const [dataFiltrado,setDataFiltrado] = useState([])
+  const [dataFiltrado, setDataFiltrado] = useState([])
   const [productosFilter, setProductosFilter] = useState("");
   const [Cod_Producto, setCod_Producto] = useState("");
   const [Cod_SubCategoria, setCod_SubCategoria] = useState("");
@@ -88,12 +87,15 @@ const MainContent = (props) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [k, setk] = useState(1);
 
+
+  const [token, setToken] = useState();
+
   useEffect(() => {
     fetch("https://strnico2022n.blob.core.windows.net/output/salidaprod (6).json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
-        const dataNuevaFiltrada = data.map(parseoParaDataFiltrada) 
+        const dataNuevaFiltrada = data.map(parseoParaDataFiltrada)
         setDataFiltrado(data);
         let categoriasArray = [];
         data.forEach((post) => {
@@ -121,41 +123,91 @@ const MainContent = (props) => {
       });
   }, []);
 
+  function handleErrors(response) {
+    if (!response.ok) {
+      console.log((response.statusText))
+      throw Error(response.statusText);
+    }
+    return response;
+}
+  
+
   const addInfo = (infoObject) => {
-    
-    setk(k + 1);
-    console.log("hola", infoObject);
-    console.log(envios)
+    let token1
+
     setNotes([])
     setErrorMessage('se guardo exitosamente')
-    if(envios.length<10){
-      console.log('no se envia por el largo es', envios.length)
-    }else{
+
+    // if(envios.length<10){
+    //   console.log('no se envia por el largo es', envios.length)
+    // }else{
+    //   fetch(
+    //     "https://strnico2022n.blob.core.windows.net/input/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
+    //     {
+    //       method: "PUT",
+    //       headers: {
+    //         "x-ms-blob-type": "BlockBlob",
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(envios),
+    //     }
+    //   )
+    //     .then((response) => response.json())
+    //     .then((response) => console.log(JSON.stringify(response)));
+    //   setEnvios([])
+    // }}
+
       fetch(
-        "https://strnico2022n.blob.core.windows.net/input/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
+        "https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", //DE LA APLICACION DE AAD
         {
-          method: "PUT",
+          // mode: "cors",
+          method: "POST",
           headers: {
-            "x-ms-blob-type": "BlockBlob",
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            "Accept": "*/*",//toma lo que hay al principio de la barra y lo que haya despues
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify(envios),
+          body: JSON.stringify(
+            {
+              "grant_type": "client_credentials",
+              "client_id": "43c7e752-14dc-47a3-afae-932fcccd5a70",//id de la aplicacion
+              "client_secret": "sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf", //se busca en la llavesita, certificados  y secretos
+              "resource": "https://management.azure.com/", //la aplicacion es como un usuario le tenes que dar el permiso
+            }
+          )
         }
+
       )
-        .then((response) => response.json())
-        .then((response) => console.log(JSON.stringify(response)));
-      setEnvios([])
-    }
+          .then(handleErrors)
+          .then(function (response) {
+            console.log("ok");
+          }).catch(function (error) {
+            console.log(error);
+          });
+
+    // fetch(
+    //   "https://management.azure.com/subscriptions/"+SUSCRIPTIONID+"/resourceGroups/"+GRUPODERECURSOS+"/providers/Microsoft.DataFactory/factories"+DATAFACTORY+"/pipelines/"+BLOBPILELINE+"/createRun?api-version=2018-06-01", //DE LA APLICACION DE AAD
+    //   {
+    //     method: "POST",
+    //     header: {
+    //       'Accept': '*/*',//toma lo que hay al principio de la barra y lo que haya despues
+    //       'Authorization': 'Bearer '+token1,
+    //   }
+    //   }
+    // )
+    //   .then((response) => response.json().access_token)
+    //   .then((response) => console.log(JSON.stringify(response))
+    // );
+
   };
 
 
   const filterConditions = (producto) => {
     let cumple = false;
-    if(productosFilter === "") cumple=true ;
-    if (producto.Producto.toLowerCase().includes(productosFilter.toLowerCase()))   cumple = true;
-    if (productosFilter == producto.Cod_Producto)  cumple = true;
-    if (productosFilter == producto.Cod_SubCategoria )  cumple = true;
+    if (productosFilter === "") cumple = true;
+    if (producto.Producto.toLowerCase().includes(productosFilter.toLowerCase())) cumple = true;
+    if (productosFilter == producto.Cod_Producto) cumple = true;
+    if (productosFilter == producto.Cod_SubCategoria) cumple = true;
 
     return cumple;
   };
@@ -239,12 +291,12 @@ const MainContent = (props) => {
   // ******************************************
   const [notes, setNotes] = useState([]);
   const [envios, setEnvios] = useState([]);
-  const [stock,setStock] = useState(0);
+  const [stock, setStock] = useState(0);
 
   const addNote = (note) => {
     const newNote = { ...note };
     newNote.stock = stock
-    if(newNote.stock>0){
+    if (newNote.stock > 0) {
 
       setNotes(notes.concat(newNote))
       setErrorMessage('')
@@ -266,8 +318,10 @@ const MainContent = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const togglePopup = (e) => {
     setIsOpen(!isOpen);
-    console.log('que onda')
+
   };
+
+
   return (
     <div className="App">
       <AuthenticatedTemplate>
@@ -293,7 +347,7 @@ const MainContent = (props) => {
               />
               <input
                 onChange={(e) => {
-                  console.log("asdsadasda", e.target.value);
+
                   setStock(e.target.value);
                 }}
                 defaultValue={"stock"}
@@ -324,13 +378,13 @@ const MainContent = (props) => {
                   <>
                     <h1>complete el formulario para agregar el nuevo producto...</h1>
                     <br></br>
-                    <Form2/>
+                    <Form2 />
                   </>
                 }
                 handleClose={togglePopup}
               />
             )}
-            
+
           </Modal.Body>
         </Modal>
       </AuthenticatedTemplate>
@@ -423,23 +477,23 @@ const MainContent = (props) => {
 
 export default function App() {
   const [modalCargarCateg, setModalCargarCateg] = useState(false);
-  const [compra,setCompra] = useState([])
-  const [compra2,setCompra2] = useState([])
+  const [compra, setCompra] = useState([])
+  const [compra2, setCompra2] = useState([])
   return (
     <PageLayout
       // addInfo= {addcompra}
-      compra = {compra}
-      setcompra = {setCompra}
+      compra={compra}
+      setcompra={setCompra}
       modalCargarCateg={modalCargarCateg}
-      compra2 = {compra2}
-      setcompra2 = {setCompra2}
+      compra2={compra2}
+      setcompra2={setCompra2}
       setModalCargarCateg={setModalCargarCateg}
     >
       <MainContent
-        compra = {compra}
-        setcompra = {setCompra}
-        compra2 = {compra2}
-        setcompra2 = {setCompra2}
+        compra={compra}
+        setcompra={setCompra}
+        compra2={compra2}
+        setcompra2={setCompra2}
         modalCargarCateg={modalCargarCateg}
         setModalCargarCateg={setModalCargarCateg}
       />

@@ -3,6 +3,9 @@ import "../form.css"
 const ageValidator = (value) => {
     return value>=0 && value<= 10000
 }
+const Validator = (value) => {
+    return (value.length()-1)+1
+}
 const Row = ({register,errors,message,handleChange,selected}) =>{
 
     return(
@@ -30,6 +33,16 @@ const Row = ({register,errors,message,handleChange,selected}) =>{
                 <label>Cantidad:</label>
                 {errors.age  && message("Colocar bien la cantidad")}
             </div>
+            <div className="txt_field">
+                <input  type="text"   {...register('Stock', {
+                    required: true,
+                    validate:Validator
+                })}/>
+                <span></span>
+                <label>sub Categoria:</label>
+                {errors.age  && message("Colocar bien la cantidad")}
+            </div>
+            
             </div>
     )
 }

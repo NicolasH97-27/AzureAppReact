@@ -1,0 +1,17 @@
+POST https://login.microsoftonline.com/71d929a5-af77-473e-bf1a-0d41e1affefe/oauth2/token
+
+{          
+        "header": {
+          "Accept": "*/*",//toma lo que hay al principio de la barra y lo que haya despues
+          "Content-Type": "application/x-www-form-urlencoded/multipart/form-data"
+          
+        },
+        "body": {
+          "grant_type": "client_credentials",
+          "client_id":  "43c7e752-14dc-47a3-afae-932fcccd5a70",//id de la aplicacion
+          "client_secret": "sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf", //se busca en la llavesita, certificados  y secretos
+          "resource": "https://management.azure.com/", //la aplicacion es como un usuario le tenes que dar el permiso
+        },
+           
+        "mode": "no-cors"
+}

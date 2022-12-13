@@ -14,7 +14,7 @@ function NavBarBoostrap(props) {
   // }, []);
   const togglePopup = (e) => {
     setIsOpen(!isOpen);
-    console.log('que onda')
+   
   };
 
   const Popup = (props) => {
