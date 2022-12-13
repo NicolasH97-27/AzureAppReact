@@ -19,7 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "nicod": "git add . && git commit -m 'f' && git push && npm run deploy",
+    "nicod": "git add . && git add . && git commit -m 'f' && git push && npm run deploy",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
