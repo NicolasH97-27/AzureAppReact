@@ -39,14 +39,14 @@ export const PageLayout = (props) => {
       );
     };
 
-    const addInfo = (infoObject) => {
+    const addInfo = () => {
     
-      console.log("holaaaaaaaaaaaa", infoObject);
+      console.log("holaaaaaaaaaaaa");
       console.log('envios')
-      props.setcompra([])
-      if(props.compra.length<11){
-        console.log('no se envia por el largo es', props.compra.length)
-      }else{
+      console.log("props.compra",props.compra)
+      console.log("props.compra2",props.compra2)
+     
+      if(props.compra2.length>0){      
         fetch(
           "https://strnico2022n.blob.core.windows.net/input2/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
           {
@@ -62,6 +62,7 @@ export const PageLayout = (props) => {
           .then((response) => response.json())
           .then((response) => console.log(JSON.stringify(response)));
         props.setcompra2([])
+        props.setcompra([])
       }
     };
 
@@ -105,10 +106,10 @@ export const PageLayout = (props) => {
                     Azure 
                 </a>
                 <div className="collapse navbar-collapse justify-content-end">
-                    {isAuthenticated ? <button onClick={()=>{setModalCargarCateg(true);console.log(modalCargarCateg)}}>Cargar Productos</button> : <></>}
+                    {isAuthenticated ? <button className=' btn btn-secondary' onClick={()=>{setModalCargarCateg(true);console.log(modalCargarCateg)}}>Cargar Productos</button> : <></>}
                 </div>
                 <div className="collapse navbar-collapse justify-content-end">
-                    {isAuthenticated ? <></> : <button title="Sign Ouddddddddddt" className='tucompra' onClick={()=>togglePopup()}>tu compra</button>}
+                    {isAuthenticated ? <></> : <button title="Sign Ouddddddddddt" className=' btn btn-secondary' onClick={()=>togglePopup()}>tu compra</button>}
                 </div>
                 <div className="collapse navbar-collapse justify-content-end">
                     {isAuthenticated ? <SignOutButton /> : <SignInButton />}

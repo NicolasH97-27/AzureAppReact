@@ -35,6 +35,7 @@ const SUSCRIPTIONID = '9cd6251c-8a67-432f-a673-0c45fb77031c' //de active directo
 const GRUPODERECURSOS = 'resourcenico2022n' //de active directory
 const DATAFACTORY = 'adfPruebaAPI' //de active directory
 const BLOBPILELINE = 'adfPruebaAPI' //de active directory
+const TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyIsImtpZCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcxZDkyOWE1LWFmNzctNDczZS1iZjFhLTBkNDFlMWFmZmVmZS8iLCJpYXQiOjE2NzA5NDQyNTAsIm5iZiI6MTY3MDk0NDI1MCwiZXhwIjoxNjcwOTQ4MTUwLCJhaW8iOiJFMlpnWUtnSWE1aXljZjNhSjVQdVA4NXVyWFg0RHdBPSIsImFwcGlkIjoiNDNjN2U3NTItMTRkYy00N2EzLWFmYWUtOTMyZmNjY2Q1YTcwIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzFkOTI5YTUtYWY3Ny00NzNlLWJmMWEtMGQ0MWUxYWZmZWZlLyIsImlkdHlwIjoiYXBwIiwib2lkIjoiNmEyMmExMWQtNmViMC00YzFhLWExMzgtOGEzNzhjMTRkMjNmIiwicmgiOiIwLkFWa0FwU25aY1hldlBrZV9HZzFCNGFfLV9rWklmM2tBdXRkUHVrUGF3ZmoyTUJPZEFBQS4iLCJzdWIiOiI2YTIyYTExZC02ZWIwLTRjMWEtYTEzOC04YTM3OGMxNGQyM2YiLCJ0aWQiOiI3MWQ5MjlhNS1hZjc3LTQ3M2UtYmYxYS0wZDQxZTFhZmZlZmUiLCJ1dGkiOiI1T1pHd2hac1hrNnZmNDhaTGxvNUFnIiwidmVyIjoiMS4wIiwieG1zX3RjZHQiOjE2NjI0NzA3OTl9.nvrFOe3fX4Xsjmz7ylDrk_Zkxbhy_lBl3m6tuYNzmrwebnt5ihctsB-FuB6wpGcBMd04nGLeX-Swyrlqy7E2fLoBBjGTC2paGsEonbQRFdrm7swCsBPCmLjNX1KMsrFlGWArQRDooZlrVgwKLulmYoMdF6n8E7EGP-Va0kNYfEM29Xw-dmGB0DWDepHD9U5CSvCODsJ9knVFHGnaPciyjg9iUz48BdX3pPBIH22IwGkLaN4qAXP0M2FSu40abuEerZIOOpatjvabpAK9imeSWMUaSOxoQr4IXIhRVoImb16wGMk5YBLHSi2QaoE7z8BLBuGMfUF76I__9Qq1bcjTcQ"
 
 const parseoParaDataFiltrada = (productoAFiltrar) => {
   return {
@@ -157,8 +158,7 @@ const MainContent = (props) => {
     //     .then((response) => console.log(JSON.stringify(response)));
     //   setEnvios([])
     // }}
-
-      fetch(
+    fetch(
         "https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", //DE LA APLICACION DE AAD
         {
           // mode: "cors",
@@ -166,18 +166,21 @@ const MainContent = (props) => {
           headers: {
             "Accept": "*/*",//toma lo que hay al principio de la barra y lo que haya despues
             "Content-Type": "application/x-www-form-urlencoded",
+            "Access-Control-Allow-Origin":"*"
           },
-          body: JSON.stringify(
+          body:(
             {
               "grant_type": "client_credentials",
               "client_id": "43c7e752-14dc-47a3-afae-932fcccd5a70",//id de la aplicacion
               "client_secret": "sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf", //se busca en la llavesita, certificados  y secretos
               "resource": "https://management.azure.com/", //la aplicacion es como un usuario le tenes que dar el permiso
-            }
-          )
+            }            
+            ),
+          // mode: "no-cors" 
         }
 
       )
+          .then(response =>  console.log(response))
           .then(handleErrors)
           .then(function (response) {
             console.log("ok");
@@ -322,6 +325,31 @@ const MainContent = (props) => {
   };
 
 
+  const addInfo3= (infoObject) => {
+    console.log("hola: ", infoObject)
+    
+
+        fetch(
+          "https://strnico2022n.blob.core.windows.net/input/productosnuevos.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-15T06:32:05Z&st=2022-12-14T22:32:05Z&spr=https&sig=ZAMnDqu%2BS4dfxF30BzLSg4OYp0Pi3gwkaJaRfn4xcko%3D",
+          {
+            method: "PUT",
+            headers: {
+              "x-ms-blob-type": "BlockBlob",
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(infoObject),
+          }
+        )
+          .then((response) => response.json())
+          .then((response) => console.log(JSON.stringify(response)));
+        setEnvios([])
+  }
+
+
+
+
+
   return (
     <div className="App">
       <AuthenticatedTemplate>
@@ -331,8 +359,8 @@ const MainContent = (props) => {
           fullscreen={true}
           onHide={() => setModalCargarCateg(false)}
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Cargar producto</Modal.Title>
+          <Modal.Header closeButton >
+            <Modal.Title >Cargar producto</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="App">
@@ -345,6 +373,7 @@ const MainContent = (props) => {
                 inputProps={inputProps}
                 onSuggestionSelected={eventEnter}
               />
+              <br />
               <input
                 onChange={(e) => {
 
@@ -353,6 +382,7 @@ const MainContent = (props) => {
                 defaultValue={"stock"}
                 type={"number"}
               ></input>
+              <br />
               <br />
               <button
                 className="btn btn-primary"
@@ -371,14 +401,14 @@ const MainContent = (props) => {
             </button>
             {/* <Form2 onClick={addInfo} message={setErrorMessage} /> */}
             <h1>{errorMessage}</h1>
-            <button onClick={() => togglePopup()}>agregar nuevo producto</button>
+            <button className="btn btn-primary" onClick={() => togglePopup()}>agregar nuevo producto</button>
             {isOpen && (
               <Popup
                 content={
                   <>
                     <h1>complete el formulario para agregar el nuevo producto...</h1>
                     <br></br>
-                    <Form2 />
+                    <Form2 onClick = {addInfo3} />
                   </>
                 }
                 handleClose={togglePopup}

@@ -11,12 +11,9 @@ const Form = ({info,onClick,message}) =>{
     
 
     const onSubmit = (data) =>{
+        console.log('jhola')
         onClick(data)   
-        message("Guardaste tu producto")
-        setTimeout(() => {
-            message(null)
-        }, 5000)
-        
+      
     }
 
     const errorMessege = (data) => {
@@ -45,7 +42,7 @@ const Form = ({info,onClick,message}) =>{
                 )
             })}
             </div>
-            <input className="guardar" type="submit" value="guardar cambios"/>
+            <input className="btn btn-primary" type="submit" value="guardar productos"/>
             </div>
         </form>
        
