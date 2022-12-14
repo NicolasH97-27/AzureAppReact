@@ -12,12 +12,12 @@ export const SignOutButton = () => {
     const handleLogout = (logoutType) => {
         if (logoutType === "popup") {
             instance.logoutPopup({
-                postLogoutRedirectUri: "/https://nicolash97-27.github.io/AzureAppReact/",
-                mainWindowRedirectUri: "/https://nicolash97-27.github.io/AzureAppReact/"
+                postLogoutRedirectUri: "https://nicolash97-27.github.io/AzureAppReact",
+                mainWindowRedirectUri: "https://nicolash97-27.github.io/AzureAppReact"
             });
         } else if (logoutType === "redirect") {
             instance.logoutRedirect({
-                postLogoutRedirectUri: "/https://nicolash97-27.github.io/AzureAppReact/",
+                postLogoutRedirectUri: "https://nicolash97-27.github.io/AzureAppReact",
             });
         }
     }
