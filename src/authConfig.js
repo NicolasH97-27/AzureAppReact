@@ -4,7 +4,7 @@
  */
 import { LogLevel } from "@azure/msal-browser";
 // const uri = "http://localhost:3000"
-const uri = "http://localhost:3000"
+const uri = "https://nicolash97-27.github.io/AzureAppReact/"
 
 /**
  * Configuration object to be passed to MSAL instance on creation. 
