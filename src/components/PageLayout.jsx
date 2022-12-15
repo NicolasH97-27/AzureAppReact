@@ -66,13 +66,17 @@ export const PageLayout = (props) => {
       //   props.setcompra2([])
       //   props.setcompra([])
       // }
-      fetch("https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", {
+    const subsID = '9cd6251c-8a67-432f-a673-0c45fb77031c' //de active directory
+    const adfName = 'adfPruebaAPI';
+    const pipeName = 'pipeline1';
+    const srcGrpName = 'resourcenico2022n';
+    const tokenP = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyIsImtpZCI6Ii1LSTNROW5OUjdiUm9meG1lWm9YcWJIWkdldyJ9.eyJhdWQiOiJodHRwczovL21hbmFnZW1lbnQuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcxZDkyOWE1LWFmNzctNDczZS1iZjFhLTBkNDFlMWFmZmVmZS8iLCJpYXQiOjE2NzEwNzI0NjUsIm5iZiI6MTY3MTA3MjQ2NSwiZXhwIjoxNjcxMDc2MzY1LCJhaW8iOiJFMlpnWUpoVGJaM0ZyL09wZk1LQzVHL0haancyQndBPSIsImFwcGlkIjoiNDNjN2U3NTItMTRkYy00N2EzLWFmYWUtOTMyZmNjY2Q1YTcwIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzFkOTI5YTUtYWY3Ny00NzNlLWJmMWEtMGQ0MWUxYWZmZWZlLyIsImlkdHlwIjoiYXBwIiwib2lkIjoiNmEyMmExMWQtNmViMC00YzFhLWExMzgtOGEzNzhjMTRkMjNmIiwicmgiOiIwLkFWa0FwU25aY1hldlBrZV9HZzFCNGFfLV9rWklmM2tBdXRkUHVrUGF3ZmoyTUJPZEFBQS4iLCJzdWIiOiI2YTIyYTExZC02ZWIwLTRjMWEtYTEzOC04YTM3OGMxNGQyM2YiLCJ0aWQiOiI3MWQ5MjlhNS1hZjc3LTQ3M2UtYmYxYS0wZDQxZTFhZmZlZmUiLCJ1dGkiOiJuQUxaVmlyZi1FbXZpYTdlaVpNc0FBIiwidmVyIjoiMS4wIiwieG1zX3RjZHQiOjE2NjI0NzA3OTl9.o1q8ziAyeBkWhopBpoeRFsOV9nPmr7z17GT2Cj0aToTE7awsT5YqVfYXJ4FvKupxp2ET0jYkZViaDRutLg0LopCztCw0sC5VaqBGMRyzyp1PPi5LQvvVCypQrMyUUJhD63xdNdoy5DVrTZuiFGhN7qJJ_tRTh18x_V6B1S35DVSPBaM4lSBMQ_OEL47M2b-d8IzbW008QtU6bn_qMbQJ5tKH4ghLqrsCi8a1HAmVbFjLw5-XHxzDxpDsszx0o51Dm4hJRrrodiqN3YKOlcA0eereE9NRBgyT1zd4cv8HqN_ZOgW2ApEZUeWsrcm4RxbxROIckW8IVWk0_vyOaNV10Q';
+    fetch("https://management.azure.com/subscriptions/"+subsID+"/resourceGroups/"+srcGrpName+"/providers/Microsoft.DataFactory/factories/"+adfName+"/pipelines/"+pipeName+"/createRun?api-version=2018-06-01", {
       method: 'POST',
       //mode: 'no-cors',
-      body: 'grant_type=client_credentials&client_id=43c7e752-14dc-47a3-afae-932fcccd5a70&client_secret=sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf&resource:https://management.azure.com/',
+      //body: 'grant_type=client_credentials&client_id=43c7e752-14dc-47a3-afae-932fcccd5a70&client_secret=sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf&resource:https://management.azure.com/',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': '/',
+        'Authorization': 'Bearer : '+tokenP+'',
       }
     }).then(function (resp) {
 
@@ -82,12 +86,12 @@ export const PageLayout = (props) => {
     }).then(function (data) {
 
       // Log the API data
-      console.log('Token: ', data);
+      console.log('Pag.j/157 Token: ', data);
 
     }).catch(function (err) {
 
       // Log any errors
-      console.log('Error: ', err);
+      console.log('Pag.j/162 Error: ', err);
 
     });
     };
