@@ -17,7 +17,7 @@ export const SignOutButton = () => {
             });
         } else if (logoutType === "redirect") {
             instance.logoutRedirect({
-                postLogoutRedirectUri: "https://nicolash97-27.github.io/AzureAppReact",
+                postLogoutRedirectUri: "/https://nicolash97-27.github.io/AzureAppReact",
             });
         }
     }

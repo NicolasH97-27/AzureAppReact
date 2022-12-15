@@ -134,7 +134,6 @@ const MainContent = (props) => {
   
 
   const addInfo = (infoObject) => {
-    let token1
 
     setNotes([])
     setErrorMessage('se guardo exitosamente')
@@ -329,21 +328,22 @@ const MainContent = (props) => {
     console.log("hola: ", infoObject)
     
 
-        fetch(
-          "https://strnico2022n.blob.core.windows.net/input/productosnuevos.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-15T06:32:05Z&st=2022-12-14T22:32:05Z&spr=https&sig=ZAMnDqu%2BS4dfxF30BzLSg4OYp0Pi3gwkaJaRfn4xcko%3D",
-          {
-            method: "PUT",
-            headers: {
-              "x-ms-blob-type": "BlockBlob",
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(infoObject),
-          }
-        )
-          .then((response) => response.json())
-          .then((response) => console.log(JSON.stringify(response)));
-        setEnvios([])
+        // fetch(
+        //   "https://strnico2022n.blob.core.windows.net/input/productosnuevos.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-15T06:32:05Z&st=2022-12-14T22:32:05Z&spr=https&sig=ZAMnDqu%2BS4dfxF30BzLSg4OYp0Pi3gwkaJaRfn4xcko%3D",
+        //   {
+        //     method: "PUT",
+        //     headers: {
+        //       "x-ms-blob-type": "BlockBlob",
+        //       Accept: "application/json",
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(infoObject),
+        //   }
+        // )
+        //   .then((response) => response.json())
+        //   .then((response) => console.log(JSON.stringify(response)));
+        // setEnvios([])
+      
   }
 
 
