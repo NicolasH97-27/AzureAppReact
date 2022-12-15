@@ -56,3 +56,11 @@
   border: 1px solid #999;
   font-size: 20px;
 }
+
+.botondesplegable{
+  display: flex;
+  margin-left: 102px;
+  margin-top: 10px;
+ 
+
+}

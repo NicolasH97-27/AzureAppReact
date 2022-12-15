@@ -74,6 +74,7 @@ const ProfileContent = () => {
  */
 const MainContent = (props) => {
   const [posts, setPosts] = useState([]);
+  const [postsInvalido, setPostsInvalido] = useState([]);
   const [posts2, setPosts2] = useState([]);
   const [modal, setModal] = useState(false);
 
@@ -92,7 +93,7 @@ const MainContent = (props) => {
   const [token, setToken] = useState();
 
   useEffect(() => {
-    fetch("https://strnico2022n.blob.core.windows.net/output/salidaprod (6).json")
+    fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoHayStock.json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -138,54 +139,56 @@ const MainContent = (props) => {
     setNotes([])
     setErrorMessage('se guardo exitosamente')
 
-    // if(envios.length<10){
-    //   console.log('no se envia por el largo es', envios.length)
-    // }else{
-    //   fetch(
-    //     "https://strnico2022n.blob.core.windows.net/input/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
-    //     {
-    //       method: "PUT",
-    //       headers: {
-    //         "x-ms-blob-type": "BlockBlob",
-    //         Accept: "application/json",
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(envios),
-    //     }
-    //   )
-    //     .then((response) => response.json())
-    //     .then((response) => console.log(JSON.stringify(response)));
-    //   setEnvios([])
-    // }}
-    fetch(
-        "https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", //DE LA APLICACION DE AAD
+    if(envios.length<10){
+      console.log('no se envia por el largo es', envios.length)
+    }else{
+      fetch(
+        "https://strnico2022n.blob.core.windows.net/input/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
         {
-          // mode: "cors",
-          method: "POST",
+          method: "PUT",
           headers: {
-            "Accept": "*/*",//toma lo que hay al principio de la barra y lo que haya despues
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Access-Control-Allow-Origin":"*"
+            "x-ms-blob-type": "BlockBlob",
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-          body:(
-            {
-              "grant_type": "client_credentials",
-              "client_id": "43c7e752-14dc-47a3-afae-932fcccd5a70",//id de la aplicacion
-              "client_secret": "sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf", //se busca en la llavesita, certificados  y secretos
-              "resource": "https://management.azure.com/", //la aplicacion es como un usuario le tenes que dar el permiso
-            }            
-            ),
-          // mode: "no-cors" 
+          body: JSON.stringify(envios),
         }
-
       )
-          .then(response =>  console.log(response))
-          .then(handleErrors)
-          .then(function (response) {
-            console.log("ok");
-          }).catch(function (error) {
-            console.log(error);
-          });
+        .then((response) => response.json())
+        .then((response) => console.log(JSON.stringify(response)));
+      setEnvios([])
+    }
+
+    //...................................................
+    // fetch(
+    //     "https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", //DE LA APLICACION DE AAD
+    //     {
+    //       // mode: "cors",
+    //       method: "POST",
+    //       headers: {
+    //         "Accept": "*/*",//toma lo que hay al principio de la barra y lo que haya despues
+    //         "Content-Type": "application/x-www-form-urlencoded",
+    //         "Access-Control-Allow-Origin":"*"
+    //       },
+    //       body:(
+    //         {
+    //           "grant_type": "client_credentials",
+    //           "client_id": "43c7e752-14dc-47a3-afae-932fcccd5a70",//id de la aplicacion
+    //           "client_secret": "sj08Q~INNS0jDmRWwYtmCJAtI1Rzmk9W0DE~mbdf", //se busca en la llavesita, certificados  y secretos
+    //           "resource": "https://management.azure.com/", //la aplicacion es como un usuario le tenes que dar el permiso
+    //         }            
+    //         ),
+    //       // mode: "no-cors" 
+    //     }
+
+    //   )
+    //       .then(response =>  console.log(response))
+    //       .then(handleErrors)
+    //       .then(function (response) {
+    //         console.log("ok");
+    //       }).catch(function (error) {
+    //         console.log(error);
+    //       });
 
     // fetch(
     //   "https://management.azure.com/subscriptions/"+SUSCRIPTIONID+"/resourceGroups/"+GRUPODERECURSOS+"/providers/Microsoft.DataFactory/factories"+DATAFACTORY+"/pipelines/"+BLOBPILELINE+"/createRun?api-version=2018-06-01", //DE LA APLICACION DE AAD
@@ -205,11 +208,13 @@ const MainContent = (props) => {
 
 
   const filterConditions = (producto) => {
-    let cumple = false;
-    if (productosFilter === "") cumple = true;
-    if (producto.Producto.toLowerCase().includes(productosFilter.toLowerCase())) cumple = true;
-    if (productosFilter == producto.Cod_Producto) cumple = true;
-    if (productosFilter == producto.Cod_SubCategoria) cumple = true;
+    let cumple = true;
+
+    if (productosFilter !== ""  &&  !producto.Producto.toLowerCase().includes(productosFilter.toLowerCase())) cumple = false;
+
+    
+    if (Cod_Producto != "" && Cod_Producto !== producto.Categoria) cumple = false;
+    if (Cod_SubCategoria != "" && Cod_SubCategoria !== producto.SubCategoria) cumple = false;
 
     return cumple;
   };
@@ -346,8 +351,18 @@ const MainContent = (props) => {
       
   }
 
-
-
+  let postFiltrados = posts.filter(filterConditions)
+  if(postFiltrados.length === 0  && postsInvalido.length === 0){
+     const nuevoFetchOQueSeYo = async()=>{
+      console.log("responseJson")
+      const response = await fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoNoHayStock.json")
+      const responseJson = await response.json()
+      setPostsInvalido(responseJson)
+      console.log("responseJson",responseJson)
+    }
+    nuevoFetchOQueSeYo();
+  }
+  
 
 
   return (
@@ -440,8 +455,9 @@ const MainContent = (props) => {
                 />
               </Col>
             </Form.Group>
+            <div className="botondesplegable">
 
-            {/* <Dropdown autoClose={"outside"}>
+            <Dropdown autoClose={"outside"}>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Categorias
               </Dropdown.Toggle>
@@ -452,7 +468,10 @@ const MainContent = (props) => {
                     <Dropdown as={ButtonGroup}>
                       <Button
                         variant="success"
-                        onClick={() => setCod_Producto(categoria.categoria)}
+                        onClick={() => {
+                          setCod_Producto(categoria.categoria)
+                          setCod_SubCategoria("")
+                        }}
                       >
                         {categoria.categoria}{" "}
                       </Button>
@@ -481,7 +500,7 @@ const MainContent = (props) => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-
+            <br></br>            
             <Button
               onClick={() => {
                 setProductosFilter("");
@@ -490,13 +509,14 @@ const MainContent = (props) => {
               }}
             >
               Borrar Filtros
-            </Button> */}
+            </Button>
+            </div>
           </Form>
         </div>
         <DarkTable
           envios2={props.compra2}
           setEnvios2={props.setcompra2}
-          posts={posts.filter(filterConditions)}
+          posts={postFiltrados.length > 0 ? postFiltrados : postsInvalido}
           envios={props.compra}
           setEnvios={props.setcompra}
         />

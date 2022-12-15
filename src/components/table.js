@@ -58,15 +58,11 @@ function DarkTable(props) {
               <p>
                 <br />
                 Tu producto: {listac.Producto}
-                <br />
-                Color: {listac.Color}
+   
                 <br />
                 Cod_Producto: {listac.Cod_Producto}
                 <br />
-                Cod_SubCategoria: {listac.Cod_SubCategoria}
-                <br />
-                <br />
-                <div>
+              <div>
                   <div>{counter}</div>
                   <button onClick={increaseByOne}>plus</button>
                   <button onClick={setToZero}>zero</button>
@@ -91,9 +87,8 @@ function DarkTable(props) {
           <tr>
             <th></th>
             <th>Producto</th>
-            <th>Codigo Producto</th>
-            <th>Codigo SubCategoria</th>
-            <th>Color</th>
+            <th>{rows[0]?.Sucursal ? 'StockReal' : 'Categoria' }</th>
+            <th>{rows[0]?.Sucursal ? 'Sucursal' : 'Subcategoria'}</th>
           </tr>
         </thead>
         <tbody>
@@ -111,9 +106,8 @@ function DarkTable(props) {
                   />
                 </td>
                 <td>{row.Producto}</td>
-                <td>{row.Cod_Producto}</td>
-                <td>{row.Cod_SubCategoria}</td>
-                <td>{row.Color}</td>
+                <td>{row.StockReal ? row.StockReal :row.Categoria}</td>
+                <td>{row.StockReal ? row.Sucursal :row.SubCategoria}</td>
               </tr>
             );
           })}

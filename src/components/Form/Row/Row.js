@@ -15,7 +15,7 @@ const Row = ({register,errors,message,handleChange,selected}) =>{
                     required: true
                 })}/>
                 <span></span>
-                <label>Producto:</label>
+                <label>Nombre del producto:</label>
             </div>
             <div className="txt_field">
                 <input type="text"  {...register('Color', {
