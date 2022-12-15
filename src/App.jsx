@@ -93,7 +93,7 @@ const MainContent = (props) => {
   const [token, setToken] = useState();
 
   useEffect(() => {
-    fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoHayStock.json")
+    fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/busquedacliente.json")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -112,10 +112,10 @@ const MainContent = (props) => {
             (categoria) => categoria.categoria === post.Categoria
           );
           let subCategoriaExist = categoriasArray.some((categoria) =>
-            categoria.subcategorias.some((e) => e === post.SubCategoria)
+            categoria.subcategorias.some((e) => e === post.Subcategoria)//lo cambie
           );
           if (index > -1 && !subCategoriaExist) {
-            categoriasArray[index].subcategorias.push(post.SubCategoria);
+            categoriasArray[index].subcategorias.push(post.Subcategoria);//lo cambie
           }
         });
         setCategorias(categoriasArray);
