@@ -141,7 +141,7 @@ const MainContent = (props) => {
 
     
     fetch(
-      "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
+      "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosStocks/stock.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
       {
         method: "PUT",
         headers: {
@@ -333,7 +333,7 @@ const MainContent = (props) => {
     
 
         fetch(
-          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosStocks/stock.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
+          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/productos.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
           {
             method: "PUT",
             headers: {

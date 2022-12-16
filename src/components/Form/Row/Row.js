@@ -25,7 +25,7 @@ const Row = ({register,errors,message,handleChange,selected}) =>{
                 <label>Color:</label>
             </div>
             <div className="txt_field">
-                <input  type="text"   {...register('Stock', {
+                <input  type="text"   {...register('stock', {
                     required: true,
            
                 })}/>
@@ -34,7 +34,7 @@ const Row = ({register,errors,message,handleChange,selected}) =>{
        
             </div>
             <div className="txt_field">
-                <input  type="text"   {...register('Subcategoria', {
+                <input  type="text"   {...register('SubCategoria', {
                     required: true,
               
                 })}/>
