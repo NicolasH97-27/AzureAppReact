@@ -139,24 +139,25 @@ const MainContent = (props) => {
     setNotes([])
     setErrorMessage('se guardo exitosamente')
 
+    
+    fetch(
+      "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
+      {
+        method: "PUT",
+        headers: {
+          "x-ms-blob-type": "BlockBlob",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(envios),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => console.log(JSON.stringify(response)));
+    setEnvios([])
+    
 
-      fetch(
-        "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
-        {
-          method: "PUT",
-          headers: {
-            "x-ms-blob-type": "BlockBlob",
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(envios),
-        }
-      )
-        .then((response) => response.json())
-        .then((response) => console.log(JSON.stringify(response)));
-      setEnvios([])
-    }
-    //..................................................
+    //...................................................
     // fetch(
     //     "https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", //DE LA APLICACION DE AAD
     //     {
