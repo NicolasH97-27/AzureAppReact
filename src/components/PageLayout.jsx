@@ -48,7 +48,8 @@ export const PageLayout = (props) => {
       // console.log("props.compra",props.compra)
       // console.log("props.compra2",props.compra2)
      
-      if(props.compra2.length>0){      
+      if(props.compra2.length>0){    
+        
         fetch(
           
           "https://storagesiglog4.blob.core.windows.net/putsfront/nuevasVentas/ventas.json?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2022-12-16T10:34:51Z&st=2022-12-16T02:34:51Z&spr=https&sig=Z2KpVrx86eNkALHV7vng1Voy8EfqbtdlsKVbNWlDCro%3D",
