@@ -51,8 +51,7 @@ export const PageLayout = (props) => {
       if(props.compra2.length>0){    
         
         fetch(
-          
-          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevasVentas/ventas.json?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2022-12-16T10:34:51Z&st=2022-12-16T02:34:51Z&spr=https&sig=Z2KpVrx86eNkALHV7vng1Voy8EfqbtdlsKVbNWlDCro%3D",
+          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevasVentas/ventas.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
           {
             method: "PUT",
             headers: {
@@ -134,7 +133,7 @@ export const PageLayout = (props) => {
         />
       )}
             <Navbar bg="primary" variant="dark" className="navbarStyle">
-                <a className="navbar-brand" href="/https://nicolash97-27.github.io/AzureAppReact">
+                <a className="navbar-brand" href="https://nicolash97-27.github.io/AzureAppReact/#/action-1">
                     Azure 
                 </a>
                 <div className="collapse navbar-collapse justify-content-end">

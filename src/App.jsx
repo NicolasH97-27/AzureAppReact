@@ -112,10 +112,10 @@ const MainContent = (props) => {
             (categoria) => categoria.categoria === post.Categoria
           );
           let subCategoriaExist = categoriasArray.some((categoria) =>
-            categoria.subcategorias.some((e) => e === post.Subcategoria)//lo cambie
+            categoria.subcategorias.some((e) => e === post.SubCategoria)//lo cambie
           );
           if (index > -1 && !subCategoriaExist) {
-            categoriasArray[index].subcategorias.push(post.Subcategoria);//lo cambie
+            categoriasArray[index].subcategorias.push(post.SubCategoria);//lo cambie
           }
         });
         setCategorias(categoriasArray);
@@ -143,8 +143,7 @@ const MainContent = (props) => {
       console.log('no se envia por el largo es', envios.length)
     }else{
       fetch(
-        
-        " https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2022-12-16T10:34:51Z&st=2022-12-16T02:34:51Z&spr=https&sig=Z2KpVrx86eNkALHV7vng1Voy8EfqbtdlsKVbNWlDCro%3D",
+        "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
         {
           method: "PUT",
           headers: {
@@ -333,9 +332,10 @@ const MainContent = (props) => {
   const subirNuevoProducto = (infoObject) => {
     console.log("hola: ", infoObject)
     
-   
+    
+
         fetch(
-          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosStocks/stock.json?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2022-12-16T10:34:51Z&st=2022-12-16T02:34:51Z&spr=https&sig=Z2KpVrx86eNkALHV7vng1Voy8EfqbtdlsKVbNWlDCro%3D",
+          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosStocks/stock.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
           {
             method: "PUT",
             headers: {
@@ -354,14 +354,14 @@ const MainContent = (props) => {
 
   let postFiltrados = posts.filter(filterConditions)
   if(postFiltrados.length === 0  && postsInvalido.length === 0){
-     const nuevoFetchOQueSeYo = async()=>{
+     const nuevoFetch = async()=>{
       console.log("responseJson")
       const response = await fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoHayStock.json")
       const responseJson = await response.json()
       setPostsInvalido(responseJson)
       console.log("responseJson",responseJson)
     }
-    nuevoFetchOQueSeYo();
+    nuevoFetch();
   }
   
 
