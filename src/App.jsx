@@ -143,7 +143,7 @@ const MainContent = (props) => {
       console.log('no se envia por el largo es', envios.length)
     }else{
       fetch(
-        "https://strnico2022n.blob.core.windows.net/input/salida.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-12T20:49:50Z&st=2022-12-12T12:49:50Z&spr=https&sig=VP7bLk2D3p5lI6Oy9N9g2Ruad5dgw%2BL8cVCZSZGVgZM%3D",
+        "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T09:38:00Z&st=2022-12-16T01:38:00Z&spr=https&sig=EMZokqKLF3qjPidaQVEjYw9KyVCpXekB1ohmYK93U30%3D",
         {
           method: "PUT",
           headers: {
@@ -329,33 +329,33 @@ const MainContent = (props) => {
   };
 
 
-  const addInfo3= (infoObject) => {
+  const subirNuevoProducto = (infoObject) => {
     console.log("hola: ", infoObject)
     
 
-        // fetch(
-        //   "https://strnico2022n.blob.core.windows.net/input/productosnuevos.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-15T06:32:05Z&st=2022-12-14T22:32:05Z&spr=https&sig=ZAMnDqu%2BS4dfxF30BzLSg4OYp0Pi3gwkaJaRfn4xcko%3D",
-        //   {
-        //     method: "PUT",
-        //     headers: {
-        //       "x-ms-blob-type": "BlockBlob",
-        //       Accept: "application/json",
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(infoObject),
-        //   }
-        // )
-        //   .then((response) => response.json())
-        //   .then((response) => console.log(JSON.stringify(response)));
-        // setEnvios([])
+        fetch(
+          "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosStocks/stock.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T09:38:00Z&st=2022-12-16T01:38:00Z&spr=https&sig=EMZokqKLF3qjPidaQVEjYw9KyVCpXekB1ohmYK93U30%3D",
+          {
+            method: "PUT",
+            headers: {
+              "x-ms-blob-type": "BlockBlob"
+            },
+            body: JSON.stringify(infoObject),
+          }
+        )
+          .then((response) => response.json())
+          .then((response) => console.log(JSON.stringify(response)));
+        setEnvios([])
       
   }
+
+  
 
   let postFiltrados = posts.filter(filterConditions)
   if(postFiltrados.length === 0  && postsInvalido.length === 0){
      const nuevoFetchOQueSeYo = async()=>{
       console.log("responseJson")
-      const response = await fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoNoHayStock.json")
+      const response = await fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoHayStock.json")
       const responseJson = await response.json()
       setPostsInvalido(responseJson)
       console.log("responseJson",responseJson)
@@ -423,7 +423,7 @@ const MainContent = (props) => {
                   <>
                     <h1>complete el formulario para agregar el nuevo producto...</h1>
                     <br></br>
-                    <Form2 onClick = {addInfo3} />
+                    <Form2 onClick = {subirNuevoProducto} />
                   </>
                 }
                 handleClose={togglePopup}

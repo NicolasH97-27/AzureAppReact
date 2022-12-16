@@ -57,7 +57,7 @@ function DarkTable(props) {
 
   function hayStock(codigoProducto) {
 
-    fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoNoHayStock.json")
+    fetch("https://datalakesiglo21.blob.core.windows.net/getsfront/cuandoHayStock.json")
   
       .then((response) => response.json())
 
@@ -69,7 +69,7 @@ function DarkTable(props) {
         
         
         if(filterdata.length>0){
-          setMaximo(filterdata[0].StockTotal)
+          setMaximo(filterdata[0].StockReal)
           
         }else{
           setMaximo(0)
@@ -128,7 +128,7 @@ function DarkTable(props) {
         <thead>
           <tr>
             <th></th>
-            <th>Producto</th>
+            <th>{rows[0]?.Sucursal ? 'Producto con stock' : 'Productos' }</th>
             <th>{rows[0]?.Sucursal ? 'StockReal' : 'Categoria' }</th>
             <th>{rows[0]?.Sucursal ? 'Sucursal' : 'Subcategoria'}</th>
           </tr>
@@ -153,7 +153,7 @@ function DarkTable(props) {
                     </td>
                     <td>{row.Producto}</td>
                     <td>{row.StockReal ? row.StockReal :row.Categoria}</td>
-                    <td>{row.StockReal ? row.Sucursal :row.Subcategoria}</td>
+                    <td>{row.StockReal ? row.Sucursal :row.SubCategoria}</td>
                   </tr> )
             }else{
               return('')
