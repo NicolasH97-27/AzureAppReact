@@ -134,7 +134,7 @@ export const PageLayout = (props) => {
         />
       )}
             <Navbar bg="primary" variant="dark" className="navbarStyle">
-                <a className="navbar-brand" href="/">
+                <a className="navbar-brand" href="/https://nicolash97-27.github.io/AzureAppReact">
                     Azure 
                 </a>
                 <div className="collapse navbar-collapse justify-content-end">
