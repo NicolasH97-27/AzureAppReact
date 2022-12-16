@@ -50,7 +50,8 @@ export const PageLayout = (props) => {
      
       if(props.compra2.length>0){      
         fetch(
-          "https://storg4siglo.blob.core.windows.net/prueba/ventas.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupiytfx&se=2022-12-16T10:28:12Z&st=2022-12-16T02:28:12Z&spr=https&sig=HhL4suH5UA4zOsvpfnV1U%2FD%2BO7iASkWZfewH1WfO%2FqA%3D",
+          
+          "https://storagesiglog4.blob.core.windows.net/prueba/ventas.json?sv=2021-06-08&ss=bfqt&srt=sco&sp=rwdlacupyx&se=2022-12-16T10:34:51Z&st=2022-12-16T02:34:51Z&spr=https&sig=Z2KpVrx86eNkALHV7vng1Voy8EfqbtdlsKVbNWlDCro%3D",
           {
             method: "PUT",
             headers: {
