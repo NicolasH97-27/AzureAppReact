@@ -139,9 +139,7 @@ const MainContent = (props) => {
     setNotes([])
     setErrorMessage('se guardo exitosamente')
 
-    if(envios.length<10){
-      console.log('no se envia por el largo es', envios.length)
-    }else{
+
       fetch(
         "https://storagesiglog4.blob.core.windows.net/putsfront/nuevosProductos/producto.json?sv=2021-06-08&ss=bfqt&srt=co&sp=rwdlacupyx&se=2022-12-16T19:30:30Z&st=2022-12-16T11:30:30Z&spr=https&sig=XMK3cUqqWxZWNBXHyID%2FrnoJyZpDaAgaC4%2BjVa0PnCk%3D",
         {
@@ -158,8 +156,7 @@ const MainContent = (props) => {
         .then((response) => console.log(JSON.stringify(response)));
       setEnvios([])
     }
-
-    //...................................................
+    //..................................................
     // fetch(
     //     "https://login.microsoftonline.com/" + TENANTID + "/oauth2/token", //DE LA APLICACION DE AAD
     //     {
