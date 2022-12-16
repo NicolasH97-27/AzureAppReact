@@ -99,8 +99,8 @@ function DarkTable(props) {
                 <br />
               <div>
                   <div>{counter}</div>
-                  <button onClick={increaseByOne}>plus</button>
-                  <button onClick={setToZero}>zero</button>
+                  <button onClick={increaseByOne}>agregar 1</button>
+                  <button onClick={setToZero}>cero</button>
                 </div>
                 <br />
 
